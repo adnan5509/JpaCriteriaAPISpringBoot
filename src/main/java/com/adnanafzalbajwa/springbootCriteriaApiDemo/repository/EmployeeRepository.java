@@ -1,5 +1,6 @@
 package com.adnanafzalbajwa.springbootCriteriaApiDemo.repository;
 
+import com.adnanafzalbajwa.springbootCriteriaApiDemo.dto.getAllEmployeesDashboardDetailsResponse;
 import com.adnanafzalbajwa.springbootCriteriaApiDemo.model.AccessCard;
 import com.adnanafzalbajwa.springbootCriteriaApiDemo.model.Employee;
 import com.adnanafzalbajwa.springbootCriteriaApiDemo.model.PaySlip;
@@ -10,6 +11,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.CriteriaUpdate;
 import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Order;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
@@ -65,7 +67,9 @@ public class EmployeeRepository {
 
         Root<Employee> employeeRoot = cq.from(Employee.class);
 
-        TypedQuery<Employee> employeeGetAllQuery = entityManager.createQuery(cq.select(employeeRoot));
+        Order orderByName = cb.asc(employeeRoot.get("name"));
+
+        TypedQuery<Employee> employeeGetAllQuery = entityManager.createQuery(cq.select(employeeRoot).orderBy(orderByName));
         return employeeGetAllQuery.getResultList();
     }
 
@@ -132,5 +136,43 @@ public class EmployeeRepository {
 
         TypedQuery<Double> query = entityManager.createQuery(cq);
         return query.getResultList().get(0);
+    }
+
+    @Transactional(readOnly = true)
+    public List<getAllEmployeesDashboardDetailsResponse> getAllEmployeesDashboardDetails(final int page, final int size) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<getAllEmployeesDashboardDetailsResponse> cq = cb.createQuery(getAllEmployeesDashboardDetailsResponse.class);
+//        SELECT e.name,e.salary,a.is_active,a.issue_date, sum(p.salary) FROM EMPLOYEE e
+//        JOIN ACCESS_CARD a ON e.id = a.employee_id
+//        JOIN payslip p ON e.id = p.payslip_employee
+//        GROUP BY  e.name, e.salary, a.is_active, a.issue_date;
+        Root<Employee> employeeRoot = cq.from(Employee.class);
+
+        Join<Employee, AccessCard> employeeAccessCardJoin = employeeRoot.join("accessCard");
+        Join<Employee, PaySlip> employeePaySlipJoin = employeeRoot.join("paySlips");
+
+
+        cq.multiselect(
+                        employeeRoot.get("name"),
+                        employeeRoot.get("age"),
+                        employeeRoot.get("salary"),
+                        employeeAccessCardJoin.get("isActive"),
+                        employeeAccessCardJoin.get("issueDate"),
+                        cb.sum(employeePaySlipJoin.get("salary"))
+                )
+                .groupBy(employeeRoot.get("name"))
+                .groupBy(employeeRoot.get("age"))
+                .groupBy(employeeRoot.get("salary"))
+                .groupBy(employeeAccessCardJoin.get("isActive"))
+                .groupBy(employeeAccessCardJoin.get("issueDate"))
+                .orderBy(cb.asc(employeeRoot.get("name")));
+
+        TypedQuery<getAllEmployeesDashboardDetailsResponse> query = entityManager.createQuery(cq);
+        query.setFirstResult(page * size);
+        query.setMaxResults(size);
+
+        return query.getResultList();
+
+
     }
 }

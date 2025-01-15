@@ -1,5 +1,6 @@
 package com.adnanafzalbajwa.springbootCriteriaApiDemo.service;
 
+import com.adnanafzalbajwa.springbootCriteriaApiDemo.dto.getAllEmployeesDashboardDetailsResponse;
 import com.adnanafzalbajwa.springbootCriteriaApiDemo.model.Employee;
 import com.adnanafzalbajwa.springbootCriteriaApiDemo.model.PaySlip;
 import com.adnanafzalbajwa.springbootCriteriaApiDemo.repository.EmployeeRepository;
@@ -49,5 +50,9 @@ public class EmployeeService {
 
     public Double getEmployeeTotalWithdrawnSalary(final int employeeId) {
         return employeeRepository.getEmployeeTotalWithdrawnSalary(employeeId);
+    }
+
+    public List<getAllEmployeesDashboardDetailsResponse> getAllEmployeesDashboardDetails(final int page, final int size) {
+        return employeeRepository.getAllEmployeesDashboardDetails(page, size);
     }
 }

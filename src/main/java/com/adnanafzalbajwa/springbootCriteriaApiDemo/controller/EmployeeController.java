@@ -1,6 +1,7 @@
 package com.adnanafzalbajwa.springbootCriteriaApiDemo.controller;
 
 import com.adnanafzalbajwa.springbootCriteriaApiDemo.dto.SalaryGreaterEmployeesRequest;
+import com.adnanafzalbajwa.springbootCriteriaApiDemo.dto.getAllEmployeesDashboardDetailsResponse;
 import com.adnanafzalbajwa.springbootCriteriaApiDemo.model.Employee;
 import com.adnanafzalbajwa.springbootCriteriaApiDemo.model.PaySlip;
 import com.adnanafzalbajwa.springbootCriteriaApiDemo.service.EmployeeService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -76,6 +78,15 @@ public class EmployeeController {
     public ResponseEntity<Double> getEmployeeTotalWithdrawnSalary(@PathVariable int employeeId) {
         Double employeeTotalWithdrawnSalary = employeeService.getEmployeeTotalWithdrawnSalary(employeeId);
         return ResponseEntity.ok(employeeTotalWithdrawnSalary);
+    }
+
+    @GetMapping("/allEmployeeDetails")
+    public ResponseEntity<List<getAllEmployeesDashboardDetailsResponse>> getAllEmployeesDashboardDetails
+            (@RequestParam(defaultValue = "0") int page,
+             @RequestParam(defaultValue = "10") int size) {
+        List<getAllEmployeesDashboardDetailsResponse> fetchedEmployeesDetails = employeeService.getAllEmployeesDashboardDetails(page, size);
+        return ResponseEntity.ok(fetchedEmployeesDetails);
+
     }
 
 }
