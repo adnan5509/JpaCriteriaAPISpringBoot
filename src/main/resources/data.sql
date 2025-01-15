@@ -86,3 +86,25 @@ INSERT INTO PAYSLIP (ID, PERIOD_START_DATE, PERIOD_END_DATE, SALARY, PAYSLIP_EMP
 (39, '2025-01-01', '2025-01-31', 6000.00, 20),
 (40, '2025-02-01', '2025-02-28', 6000.00, 20);
 
+-- Insert Address for all employees
+INSERT INTO Address (id, building_number, street, city, country, postal_code, employee_id) VALUES
+(1, 101, 'Main St', 'New York', 'USA', '10001', 1),
+(2, 102, 'Broadway', 'Los Angeles', 'USA', '90001', 2),
+(3, 103, 'Lakeview Ave', 'Chicago', 'USA', '60601', 3),
+(4, 104, 'Elm St', 'Houston', 'USA', '77001', 4),
+(5, 105, 'Pine St', 'Phoenix', 'USA', '85001', 5),
+(6, 106, 'Oak St', 'Philadelphia', 'USA', '19019', 6),
+(7, 107, 'Maple St', 'San Antonio', 'USA', '78201', 7),
+(8, 108, 'Cedar Ave', 'San Diego', 'USA', '92101', 8),
+(9, 109, 'Birch Blvd', 'Dallas', 'USA', '75201', 9),
+(10, 110, 'Aspen Dr', 'San Jose', 'USA', '95101', 10),
+(11, 111, 'Magnolia Ln', 'Austin', 'USA', '73301', 11),
+(12, 112, 'Willow Rd', 'Jacksonville', 'USA', '32099', 12),
+(13, 113, 'Spruce Ct', 'Fort Worth', 'USA', '76101', 13),
+(14, 114, 'Hickory Dr', 'Columbus', 'USA', '43085', 14),
+(15, 115, 'Cypress Ave', 'Charlotte', 'USA', '28201', 15),
+(16, 116, 'Sequoia Blvd', 'San Francisco', 'USA', '94101', 16),
+(17, 117, 'Fir Way', 'Indianapolis', 'USA', '46201', 17),
+(18, 118, 'Redwood Ln', 'Seattle', 'USA', '98101', 18),
+(19, 119, 'Palm St', 'Denver', 'USA', '80201', 19),
+(20, 120, 'Poplar Dr', 'Boston', 'USA', '02101', 20);

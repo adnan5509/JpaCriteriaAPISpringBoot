@@ -1,7 +1,6 @@
 package com.adnanafzalbajwa.springbootCriteriaApiDemo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +31,9 @@ public class Employee implements Serializable {
     @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
     @JsonIgnore
     private AccessCard accessCard;
+
+    @OneToOne(mappedBy = "employee")
+    private Address address;
 
     @OneToMany(mappedBy = "employee")
     @JsonIgnore
@@ -85,6 +87,14 @@ public class Employee implements Serializable {
         this.paySlips = paySlips;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(final Address address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -93,6 +103,7 @@ public class Employee implements Serializable {
                 ", age=" + age +
                 ", salary=" + salary +
                 ", accessCard=" + accessCard +
+                ", address=" + address +
                 ", paySlips=" + paySlips +
                 '}';
     }
