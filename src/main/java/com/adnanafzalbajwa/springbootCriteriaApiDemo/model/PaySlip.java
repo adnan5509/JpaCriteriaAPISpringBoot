@@ -1,7 +1,6 @@
 package com.adnanafzalbajwa.springbootCriteriaApiDemo.model;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -76,7 +75,6 @@ public class PaySlip implements Serializable {
                 ", periodStartDate=" + periodStartDate +
                 ", periodEndDate=" + periodEndDate +
                 ", salary=" + salary +
-                ", employee=" + employee +
                 '}';
     }
 }
