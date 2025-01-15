@@ -2,6 +2,7 @@ package com.adnanafzalbajwa.springbootCriteriaApiDemo.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class PaySlip implements Serializable {
     private double salary;
     @ManyToOne
     @JoinColumn(name = "payslip_employee")
-    @JsonBackReference
+    @JsonIgnore
     private Employee employee;
 
     public int getId() {

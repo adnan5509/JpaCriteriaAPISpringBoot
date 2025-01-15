@@ -2,6 +2,7 @@ package com.adnanafzalbajwa.springbootCriteriaApiDemo.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +21,7 @@ public class AccessCard {
     private boolean isActive;
     private String firmwareVersion;
     @OneToOne
-    @JsonBackReference
+    @JsonIgnore
     private Employee employee;
 
     public int getId() {

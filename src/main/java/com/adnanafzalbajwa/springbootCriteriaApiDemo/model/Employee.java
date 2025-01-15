@@ -1,5 +1,6 @@
 package com.adnanafzalbajwa.springbootCriteriaApiDemo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,11 +30,11 @@ public class Employee implements Serializable {
     private double salary;
 
     @OneToOne(mappedBy = "employee", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     private AccessCard accessCard;
 
     @OneToMany(mappedBy = "employee")
-    @JsonManagedReference
+    @JsonIgnore
     private List<PaySlip> paySlips = new ArrayList<>();
 
     public int getId() {
